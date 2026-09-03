@@ -1,0 +1,6 @@
+This is document 1.
+
+Python is a high-level programming language.
+Ollama allows users to run large language models locally.
+TinyLlama is a lightweight language model.
+Our AI chatbot uses Python and Ollama.
