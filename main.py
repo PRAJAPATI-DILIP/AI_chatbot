@@ -1,13 +1,44 @@
 from pathlib import Path
+import json
 from ollama import chat
 
 MODEL = "tinyllama"
-DATA_FILE = Path(__file__).parent / "data" / "raw" / "doc1.txt"
 
+BASE_DIR = Path(__file__).parent
+DATA_DIR = BASE_DIR / "data" / "raw"
+MEMORY_FILE = DATA_DIR / "chat_history.json"
 
 def load_data():
-    with open(DATA_FILE, "r", encoding="utf-8") as file:
-        return file.read()
+    documents = []
+
+    for file_path in DATA_DIR.glob("*.txt"):
+        with open(file_path, "r", encoding="utf-8") as file:
+            content = file.read()
+
+        documents.append(
+            f"""
+--- {file_path.name} ---
+{content}
+"""
+        )
+
+    return "\n".join(documents)
+
+
+def load_memory():
+    if not MEMORY_FILE.exists():
+        return []
+
+    try:
+        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return []
+
+
+def save_memory(messages):
+    with open(MEMORY_FILE, "w", encoding="utf-8") as file:
+        json.dump(messages, file, indent=4, ensure_ascii=False)
 
 
 def ask_ai(messages):
@@ -24,14 +55,21 @@ def main():
     print("          AI Chatbot")
     print("================================")
 
-    # Load our own data
     document = load_data()
 
     print("Document loaded successfully.")
+
+    # Load previous conversation
+    previous_messages = load_memory()
+
+    if previous_messages:
+        print("Previous conversation loaded.")
+    else:
+        print("No previous conversation found.")
+
     print("Type 'exit' to quit.\n")
 
-    messages = [
-    {
+    system_message = {
         "role": "system",
         "content": f"""
 You are a document-based AI assistant.
@@ -47,12 +85,18 @@ DOCUMENT:
 {document}
 """
     }
-]
+
+    # Start with system instructions
+    messages = [system_message]
+
+    # Add previous conversation
+    messages.extend(previous_messages)
 
     while True:
         question = input("You: ")
 
         if question.lower() == "exit":
+            save_memory(messages[1:])
             print("AI: Goodbye!")
             break
 
@@ -68,7 +112,10 @@ DOCUMENT:
             "content": answer
         })
 
-        print(f" ChatBot: {answer}\n")
+        print(f"ChatBot: {answer}\n")
+
+        # Save conversation after every answer
+        save_memory(messages[1:])
 
 
 if __name__ == "__main__":
