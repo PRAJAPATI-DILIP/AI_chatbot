@@ -1,28 +1,16 @@
+
 from pathlib import Path
 import json
+
 from ollama import chat
+from app.retriever import load_documents, search_documents
+
 
 MODEL = "tinyllama"
 
 BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data" / "raw"
 MEMORY_FILE = DATA_DIR / "chat_history.json"
-
-def load_data():
-    documents = []
-
-    for file_path in DATA_DIR.glob("*.txt"):
-        with open(file_path, "r", encoding="utf-8") as file:
-            content = file.read()
-
-        documents.append(
-            f"""
---- {file_path.name} ---
-{content}
-"""
-        )
-
-    return "\n".join(documents)
 
 
 def load_memory():
@@ -41,7 +29,36 @@ def save_memory(messages):
         json.dump(messages, file, indent=4, ensure_ascii=False)
 
 
-def ask_ai(messages):
+def ask_ai(question, relevant_content, previous_messages):
+    system_message = {
+        "role": "system",
+        "content": f"""
+You are a strict document-based AI assistant.
+
+RULES:
+1. Answer ONLY from the provided information.
+2. Do NOT use your own knowledge.
+3. Do NOT guess or complete missing information.
+4. If the answer is not clearly present in the provided information, reply exactly:
+"I don't know based on the provided document."
+5. Ignore information from previous conversations if it is not supported by the provided document.
+6. Do not introduce unrelated sections from the document.
+
+RELEVANT DOCUMENT INFORMATION:
+{relevant_content}
+"""
+    }
+
+    messages = [system_message]
+
+    # Keep recent conversation for context
+    messages.extend(previous_messages[-6:])
+
+    messages.append({
+        "role": "user",
+        "content": question
+    })
+
     response = chat(
         model=MODEL,
         messages=messages
@@ -55,9 +72,14 @@ def main():
     print("          AI Chatbot")
     print("================================")
 
-    document = load_data()
+    # Load documents
+    documents = load_documents(DATA_DIR)
 
-    print("Document loaded successfully.")
+    if not documents:
+        print("No documents found.")
+        return
+
+    print("Documents loaded successfully.")
 
     # Load previous conversation
     previous_messages = load_memory()
@@ -69,53 +91,46 @@ def main():
 
     print("Type 'exit' to quit.\n")
 
-    system_message = {
-        "role": "system",
-        "content": f"""
-You are a document-based AI assistant.
-
-IMPORTANT RULES:
-1. You must answer ONLY using the information in the document below.
-2. Do NOT use your own knowledge.
-3. Do NOT make assumptions.
-4. If the answer cannot be found in the document, reply exactly:
-"I don't know based on the provided document."
-
-DOCUMENT:
-{document}
-"""
-    }
-
-    # Start with system instructions
-    messages = [system_message]
-
-    # Add previous conversation
-    messages.extend(previous_messages)
-
     while True:
         question = input("You: ")
 
         if question.lower() == "exit":
-            save_memory(messages[1:])
             print("AI: Goodbye!")
             break
 
-        messages.append({
+        # Search documents
+        results = search_documents(documents, question)
+
+        if not results:
+            answer = "I don't know based on the provided document."
+
+        else:
+            # Take only the relevant sections
+            relevant_content = "\n\n".join(
+                result["content"]
+                for result in results
+            )
+
+            answer = ask_ai(
+                question,
+                relevant_content,
+                previous_messages
+            )
+
+        print(f"ChatBot: {answer}\n")
+
+        # Save conversation
+        previous_messages.append({
             "role": "user",
             "content": question
         })
 
-        answer = ask_ai(messages)
-
-        messages.append({
+        previous_messages.append({
             "role": "assistant",
             "content": answer
         })
 
-        print(f"ChatBot: {answer}\n")
-
-        # Save conversation after every answer
-        save_memory(messages[1:])
+        save_memory(previous_messages)
 
 
 if __name__ == "__main__":
