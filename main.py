@@ -2,6 +2,7 @@
 from pathlib import Path
 import json
 
+# pyrefly: ignore [missing-import]
 from ollama import chat
 from app.retriever import load_documents, search_documents
 
