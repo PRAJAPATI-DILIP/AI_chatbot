@@ -150,5 +150,93 @@
     {
         "role": "assistant",
         "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "what is python"
+    },
+    {
+        "role": "assistant",
+        "content": "PyTorch is a popular deep learning library developed by The Chinese University of Hong Kong (CUHK) and Massachusetts Institute of Technology (MIT). It is open-source and supports numerous machine learning algorithms, including deep learning, reinforcement learning, and neural networks. PyTorch is known for its support for distributed computing, large-scale data analysis, and its ability to accelerate machine learning training. PyTorch's primary benefits include its high performance, ease of use, and extensive documentation."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "what is python"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It is known for its readability and simplicity, and it supports indentation-based code blocks. The document also mentions that Python is used with tools like Ollama for running large language models locally."
+    },
+    {
+        "role": "user",
+        "content": "who is the prime minister of ibndia"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "What is Python?"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It is known for its readability and simplicity, and it supports indentation-based code blocks."
+    },
+    {
+        "role": "user",
+        "content": "Who is the Prime Minister of India?"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "who is the prime minister of india"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "who is the prime minister of india"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
     }
 ]
