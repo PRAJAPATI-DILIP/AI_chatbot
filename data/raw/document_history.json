@@ -1,0 +1,34 @@
+[
+    {
+        "role": "user",
+        "content": "What did I just tell you about my favourite programming language?"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "You: What is Python?"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It uses indentation to define blocks of code."
+    },
+    {
+        "role": "user",
+        "content": "You: What are its uses?"
+    },
+    {
+        "role": "assistant",
+        "content": "The document states that Python is used for web development, data analysis, automation, and artificial intelligence."
+    },
+    {
+        "role": "user",
+        "content": "You: Which programming language is it?"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language."
+    }
+]

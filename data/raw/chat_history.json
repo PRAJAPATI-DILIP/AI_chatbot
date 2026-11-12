@@ -238,5 +238,85 @@
     {
         "role": "assistant",
         "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "what is python"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It uses indentation to define code blocks and is often paired with tools like Ollama for running large language models locally."
+    },
+    {
+        "role": "user",
+        "content": "What is Python?"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It uses indentation to define blocks of code. The document also mentions that an AI chatbot uses Python and Ollama."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "what is python?"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It uses indentation to define blocks of code."
+    },
+    {
+        "role": "user",
+        "content": "hello"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello! 😊 Python is a high-level, interpreted programming language known for its readability and simplicity. It's widely used in web development, data analysis, artificial intelligence, and automation. Its syntax emphasizes indentation rather than braces, making code easier to read. As an AI chatbot, I'm built using Python! 🐍"
+    },
+    {
+        "role": "user",
+        "content": "hi"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
+    },
+    {
+        "role": "user",
+        "content": "what is python"
+    },
+    {
+        "role": "assistant",
+        "content": "Python is a high-level programming language commonly used for web development, data analysis, automation, and artificial intelligence. It uses indentation to define blocks of code."
+    },
+    {
+        "role": "user",
+        "content": "who is the prime minister of india"
+    },
+    {
+        "role": "assistant",
+        "content": "I don't know based on the provided document."
     }
 ]
